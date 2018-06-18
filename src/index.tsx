@@ -5,7 +5,5 @@ import App from './App'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker'
 
-const exact: boolean = true
-
 ReactDOM.render(<App />, document.getElementById('root') as HTMLElement)
 registerServiceWorker()
