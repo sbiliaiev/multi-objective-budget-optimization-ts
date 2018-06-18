@@ -14,6 +14,11 @@ export interface IStrategy {
   social: number
 }
 
-export interface INormilizedMatrix extends IStrategy {
+export interface INormilizedMatrix {
   summaryEfficiency: number
+  ecologicEfficiency: number
+  economicEfficiency: number
+  number: number
+  socialEfficiency: number
+  cost: number
 }
