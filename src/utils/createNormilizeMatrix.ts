@@ -52,8 +52,10 @@ const createNormilizedMatrix = (data: Data, strategy: IStrategy) => {
     const social = calculateEfficiency(alternative.social, worstSocial, bestSocial) * strategy.social
 
     return {
+      cost: alternative.cost,
       ecologicEfficiency: ecologic,
       economicEfficiency: economic,
+      number: alternative.number,
       socialEfficiency: social,
       summaryEfficiency: round(ecologic + economic + social, 4),
     }
