@@ -4,7 +4,7 @@ import './App.css'
 import logo from './logo.svg'
 
 // Components
-import { Button, ButtonToolbar, Table } from 'react-bootstrap'
+import { Button, ButtonToolbar, FormControl, Table } from 'react-bootstrap'
 
 // Data
 import { defaultValues } from './data'
@@ -16,23 +16,44 @@ import { createNormilizeMatrix, sortNormilizedMatrix } from './utils'
 // Types
 import { IAlternative, INormilizedMatrix, IStrategy } from './types'
 
-class App extends React.Component {
+interface IState {
+  values: null | IAlternative[]
+  strategy: null | IStrategy
+  isSelectedStrategy: boolean
+}
+
+class App extends React.PureComponent<any, IState> {
   public state = {
     isSelectedStrategy: false,
     strategy: null,
+    values: [],
+  }
+
+  public componentDidMount() {
+    this.setState({
+      values: [...defaultValues],
+    })
   }
 
   public setStrategy = (strategy: IStrategy) => {
     this.setState({ strategy, isSelectedStrategy: true })
   }
 
+  public changeValue = (index: number, criteria: string, value: string) => {
+    const changedValues = [...this.state.values]
+    changedValues[index][criteria] = Number(value)
+
+    this.setState({
+      isSelectedStrategy: false,
+      values: changedValues,
+    })
+  }
+
   public renderNormilizedMatrix = () => {
-    const { isSelectedStrategy, strategy } = this.state
+    const { isSelectedStrategy, strategy, values } = this.state
 
     if (isSelectedStrategy && strategy) {
-      const normilizedMatrix: INormilizedMatrix[] = createNormilizeMatrix(defaultValues, strategy)
-
-      console.log('EHRERE', normilizedMatrix)
+      const normilizedMatrix: INormilizedMatrix[] = createNormilizeMatrix(values, strategy)
 
       return (
         <div>
@@ -110,6 +131,8 @@ class App extends React.Component {
   }
 
   public render() {
+    const { values } = this.state
+
     return (
       <div className="App">
         <header className="App-header">
@@ -133,15 +156,35 @@ class App extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {defaultValues.map((alternative: IAlternative) => (
-                  <tr key={alternative.number}>
-                    <td>{alternative.number}</td>
-                    <td>{alternative.cost}</td>
-                    <td>{alternative.economic}</td>
-                    <td>{alternative.ecologic}</td>
-                    <td>{alternative.social}</td>
-                  </tr>
-                ))}
+                {values
+                  ? values.map((alternative: IAlternative, index: number) => (
+                      <tr key={alternative.number}>
+                        <td style={{ verticalAlign: 'middle' }}>{alternative.number}</td>
+                        <td style={{ verticalAlign: 'middle' }}>{alternative.cost}</td>
+                        <td>
+                          <FormControl
+                            type="text"
+                            value={alternative.economic}
+                            onChange={(e: any) => this.changeValue(index, 'economic', e.target.value)}
+                          />
+                        </td>
+                        <td>
+                          <FormControl
+                            type="text"
+                            value={alternative.ecologic}
+                            onChange={(e: any) => this.changeValue(index, 'ecologic', e.target.value)}
+                          />
+                        </td>
+                        <td>
+                          <FormControl
+                            type="text"
+                            value={alternative.social}
+                            onChange={(e: any) => this.changeValue(index, 'social', e.target.value)}
+                          />
+                        </td>
+                      </tr>
+                    ))
+                  : null}
               </tbody>
             </Table>
             <ButtonToolbar
