@@ -8,7 +8,7 @@ import { Button, ButtonToolbar, FormControl, Table } from 'react-bootstrap'
 
 // Data
 import { defaultValues } from './data'
-import { ecologicStrategy, economicStrategy, socialStrategy } from './data'
+import { balancedStrategy, ecologicStrategy, economicStrategy, socialStrategy } from './data'
 
 // Utils
 import { createNormilizeMatrix, sortNormilizedMatrix } from './utils'
@@ -190,6 +190,13 @@ class App extends React.PureComponent<any, IState> {
             <ButtonToolbar
               style={{ marginTop: '100px', marginBottom: '100px', marginLeft: 'auto', marginRight: 'auto' }}
             >
+              <Button
+                bsStyle="danger"
+                style={{ marginRight: '20px' }}
+                onClick={() => this.setStrategy(balancedStrategy)}
+              >
+                Розрахувати для збалансованної стратегії
+              </Button>
               <Button
                 bsStyle="primary"
                 style={{ marginRight: '20px' }}
