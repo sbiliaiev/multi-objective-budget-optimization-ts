@@ -188,7 +188,14 @@ class App extends React.PureComponent<any, IState> {
               </tbody>
             </Table>
             <ButtonToolbar
-              style={{ marginTop: '100px', marginBottom: '100px', marginLeft: 'auto', marginRight: 'auto' }}
+              style={{
+                marginTop: '100px',
+                marginBottom: '20px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                display: 'flex',
+                justifyContent: 'space-around',
+              }}
             >
               <Button
                 bsStyle="danger"
@@ -204,6 +211,16 @@ class App extends React.PureComponent<any, IState> {
               >
                 Розрахувати для економічної стратегії
               </Button>
+            </ButtonToolbar>
+            <ButtonToolbar
+              style={{
+                marginBottom: '100px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                display: 'flex',
+                justifyContent: 'space-around',
+              }}
+            >
               <Button
                 bsStyle="success"
                 style={{ marginRight: '20px' }}
